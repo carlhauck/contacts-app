@@ -1,0 +1,13 @@
+{
+  id: contact.id,
+  first_name: contact.first_name,
+  last_name: contact.last_name,
+  email: contact.email,
+  phone_number: contact.phone_number,
+  updated_at: contact.updated_at,
+  formatted: {
+    full_name: contact.full_name,
+    japanese_phone_number: contact.japanese_phone_number,
+    updated_at: contact.friendly_updated_at
+  }
+}
