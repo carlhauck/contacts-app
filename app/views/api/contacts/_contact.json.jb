@@ -6,6 +6,9 @@
   email: contact.email,
   phone_number: contact.phone_number,
   bio: contact.bio,
+  address: contact.address,
+  latitude: contact.latitude,
+  longitude: contact.longitude,
   updated_at: contact.updated_at,
   formatted: {
     full_name: contact.full_name,
