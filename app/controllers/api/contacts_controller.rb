@@ -2,6 +2,30 @@ class Api::ContactsController < ApplicationController
 
   def index
     @contacts = Contact.all
+    if params[:search]
+      @contacts = @contacts.where("first_name iLIKE ? OR middle_name iLIKE ? OR last_name iLIKE ? OR email iLIKE ? OR phone_number iLIKE ? OR bio iLIKE ? OR address iLIKE ?", "%#{params[:search]}%", "%#{params[:search]}%", "%#{params[:search]}%", "%#{params[:search]}%", "%#{params[:search]}%", "%#{params[:search]}%", "%#{params[:search]}%")
+    end
+    if params[:first_name]
+      @contacts = @contacts.where("first_name iLIKE ?", "%#{params[:first_name]}%")
+    end
+    if params[:middle_name]
+      @contacts = @contacts.where("middle_name iLIKE ?", "%#{params[:middle_name]}%")
+    end
+    if params[:last_name]
+      @contacts = @contacts.where("last_name iLIKE ?", "%#{params[:last_name]}%")
+    end
+    if params[:email]
+      @contacts = @contacts.where("email iLIKE ?", "%#{params[:email]}%")
+    end
+    if params[:phone_number]
+      @contacts = @contacts.where("phone_number iLIKE ?", "%#{params[:phone_number]}%")
+    end
+    if params[:bio]
+      @contacts = @contacts.where("bio iLIKE ?", "%#{params[:bio]}%")
+    end
+    if params[:address]
+      @contacts = @contacts.where("address iLIKE ?", "%#{params[:address]}%")
+    end
     render "index.json.jb"
   end
 
@@ -23,8 +47,11 @@ class Api::ContactsController < ApplicationController
       latitude: coordinates[0],
       longitude: coordinates[1]
     )
-    @contact.save
-    render "show.json.jb"
+    if @contact.save
+      render "show.json.jb"
+    else
+      render json: {errors: @contact.errors.full_messages}, status: :unprocessable_entity
+    end
   end
 
   def update
@@ -43,8 +70,11 @@ class Api::ContactsController < ApplicationController
       phone_number: params[:phone_number] || @contact.phone_number,
       bio: params[:bio] || @contact.bio
     )
-    @contact.save
-    render "show.json.jb"
+    if @contact.save
+      render "show.json.jb"
+    else
+      render json: {errors: @contact.errors.full_messages}, status: :unprocessable_entity
+    end
   end
 
   def destroy

@@ -1,5 +1,11 @@
 class Contact < ApplicationRecord
 
+  validates :first_name, length: { minimum: 1 }, format: { with: /\A[a-zA-Z]+\z/,
+    message: "First name can only contain letters. Sorry, Elon and Grimes." }
+  validates :last_name, length: { minimum: 1 }, format: { with: /\A[a-zA-Z]+\z/,
+    message: "Last name can only contain letters." }
+  validates :email, format: { with: /\A[^@\s]+@([^@\s]+\.)+[^@\s]+\z/ }
+
   def friendly_updated_at
     updated_at.strftime("%-d %B %Y %-l:%M%P")
   end
