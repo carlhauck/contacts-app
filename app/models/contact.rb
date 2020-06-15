@@ -1,5 +1,9 @@
 class Contact < ApplicationRecord
 
+  belongs_to :user
+  has_many :contact_groups
+  has_many :groups, through: :contact_groups
+
   validates :first_name, length: { minimum: 1 }, format: { with: /\A[a-zA-Z]+\z/,
     message: "First name can only contain letters. Sorry, Elon and Grimes." }
   validates :last_name, length: { minimum: 1 }, format: { with: /\A[a-zA-Z]+\z/,

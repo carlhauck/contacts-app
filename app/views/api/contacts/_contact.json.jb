@@ -14,5 +14,6 @@
     full_name: contact.full_name,
     japanese_phone_number: contact.japanese_phone_number,
     updated_at: contact.friendly_updated_at
-  }
+  },
+  groups: contact.groups
 }
